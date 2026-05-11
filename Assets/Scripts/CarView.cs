@@ -14,11 +14,14 @@ public class CarView : MonoBehaviour
     private BoardManager board;
 
     private Vector3 dragStartWorld;
+    private Vector3 dragStartCarWorld;
+
     private int dragStartX;
     private int dragStartY;
 
-    private int previewX;
-    private int previewY;
+    private float minDragDistance;
+    private float maxDragDistance;
+    private float currentDragDistance;
 
     public void Init(BoardManager boardManager, CarConfig config)
     {
@@ -35,9 +38,6 @@ public class CarView : MonoBehaviour
 
         ApplySize();
         SnapToGrid();
-
-        previewX = X;
-        previewY = Y;
     }
 
     private void ApplySize()
@@ -61,11 +61,28 @@ public class CarView : MonoBehaviour
         mouse.z = 0f;
 
         dragStartWorld = mouse;
+        dragStartCarWorld = transform.position;
+
         dragStartX = X;
         dragStartY = Y;
 
-        previewX = X;
-        previewY = Y;
+        currentDragDistance = 0f;
+
+        int minDelta = board.GetAllowedDelta(this, dragStartX, dragStartY, -20);
+        int maxDelta = board.GetAllowedDelta(this, dragStartX, dragStartY, 20);
+
+        minDragDistance = minDelta * board.CellSize;
+        maxDragDistance = maxDelta * board.CellSize;
+
+        if (IsTarget && Orientation == VehicleOrientation.Horizontal)
+        {
+            float maxToExit = board.GetMaxDragDistanceToTargetExit(
+                this,
+                dragStartCarWorld
+            );
+
+            maxDragDistance = Mathf.Min(maxDragDistance, maxToExit);
+        }
     }
 
     private void OnMouseDrag()
@@ -75,42 +92,54 @@ public class CarView : MonoBehaviour
 
         Vector3 delta = mouse - dragStartWorld;
 
-        int desiredDelta;
+        float rawDistance;
 
         if (Orientation == VehicleOrientation.Horizontal)
         {
-            desiredDelta = Mathf.RoundToInt(delta.x / board.CellSize);
+            rawDistance = delta.x;
         }
         else
         {
-            desiredDelta = Mathf.RoundToInt(delta.y / board.CellSize);
+            rawDistance = delta.y;
         }
 
-        int allowedDelta = board.GetAllowedDelta(
-            this,
-            dragStartX,
-            dragStartY,
-            desiredDelta
+        currentDragDistance = Mathf.Clamp(
+            rawDistance,
+            minDragDistance,
+            maxDragDistance
         );
 
-        previewX = dragStartX;
-        previewY = dragStartY;
+        Vector3 offset;
 
         if (Orientation == VehicleOrientation.Horizontal)
         {
-            previewX += allowedDelta;
+            offset = new Vector3(currentDragDistance, 0f, 0f);
         }
         else
         {
-            previewY += allowedDelta;
+            offset = new Vector3(0f, currentDragDistance, 0f);
         }
 
-        transform.position = board.GridToWorld(previewX, previewY, this);
+        transform.position = dragStartCarWorld + offset;
     }
 
     private void OnMouseUp()
     {
-        board.CommitMove(this, previewX, previewY);
+        int cellDelta = Mathf.RoundToInt(currentDragDistance / board.CellSize);
+
+        int newX = dragStartX;
+        int newY = dragStartY;
+
+        if (Orientation == VehicleOrientation.Horizontal)
+        {
+            newX += cellDelta;
+        }
+        else
+        {
+            newY += cellDelta;
+        }
+
+        board.CommitMove(this, newX, newY);
     }
 
     public void SetGridPosition(int x, int y)

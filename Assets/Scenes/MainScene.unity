@@ -1088,6 +1088,7 @@ MonoBehaviour:
   carPrefab: {fileID: 3704816263489146386, guid: 801e200fac52c634d85ecf907ce1ccf0, type: 3}
   cellSize: 1
   boardOrigin: {x: -3, y: -3}
+  targetExitWorldPosition: {x: 3.4, y: -0.5}
   moveText: {fileID: 204715766}
   winPanel: {fileID: 693954524}
 --- !u!4 &1318965595

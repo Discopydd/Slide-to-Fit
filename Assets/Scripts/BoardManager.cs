@@ -14,6 +14,9 @@ public class BoardManager : MonoBehaviour
     public float cellSize = 1f;
     public Vector2 boardOrigin = new Vector2(-3f, -3f);
 
+    [Header("Exit")]
+    public Vector2 targetExitWorldPosition = new Vector2(3f, -0.5f);
+
     [Header("UI")]
     public TMP_Text moveText;
     public GameObject winPanel;
@@ -73,11 +76,11 @@ public class BoardManager : MonoBehaviour
     }
 
     public int GetAllowedDelta(
-        CarView movingCar,
-        int startX,
-        int startY,
-        int desiredDelta
-    )
+    CarView movingCar,
+    int startX,
+    int startY,
+    int desiredDelta
+)
     {
         if (desiredDelta == 0)
         {
@@ -94,6 +97,8 @@ public class BoardManager : MonoBehaviour
 
             if (movingCar.Orientation == VehicleOrientation.Horizontal)
             {
+                checkY = startY;
+
                 if (step > 0)
                 {
                     checkX = startX + movingCar.Length - 1 + d;
@@ -102,11 +107,11 @@ public class BoardManager : MonoBehaviour
                 {
                     checkX = startX + d;
                 }
-
-                checkY = startY;
             }
             else
             {
+                checkX = startX;
+
                 if (step > 0)
                 {
                     checkY = startY + movingCar.Length - 1 + d;
@@ -115,16 +120,9 @@ public class BoardManager : MonoBehaviour
                 {
                     checkY = startY + d;
                 }
-
-                checkX = startX;
             }
 
-            if (!IsInsideBoard(checkX, checkY))
-            {
-                break;
-            }
-
-            if (IsOccupiedByOther(checkX, checkY, movingCar))
+            if (!CanMoveIntoCell(movingCar, checkX, checkY))
             {
                 break;
             }
@@ -138,6 +136,22 @@ public class BoardManager : MonoBehaviour
     private bool IsInsideBoard(int x, int y)
     {
         return x >= 0 && x < Width && y >= 0 && y < Height;
+    }
+
+    private bool CanMoveIntoCell(CarView movingCar, int x, int y)
+    {
+        if (IsInsideBoard(x, y))
+        {
+            return !IsOccupiedByOther(x, y, movingCar);
+        }
+
+        bool isExitCell =
+            movingCar.IsTarget &&
+            movingCar.Orientation == VehicleOrientation.Horizontal &&
+            y == level.exitRow &&
+            x == Width;
+
+        return isExitCell;
     }
 
     private bool IsOccupiedByOther(int x, int y, CarView movingCar)
@@ -163,6 +177,23 @@ public class BoardManager : MonoBehaviour
         bool moved = car.X != newX || car.Y != newY;
 
         car.SetGridPosition(newX, newY);
+
+        bool targetReachedExit =
+            car.IsTarget &&
+            car.Orientation == VehicleOrientation.Horizontal &&
+            car.Y == level.exitRow &&
+            car.X + car.Length >= Width;
+
+        if (targetReachedExit)
+        {
+            float carHalfWidth = car.Length * cellSize * 0.5f;
+
+            car.transform.position = new Vector3(
+                targetExitWorldPosition.x - carHalfWidth,
+                targetExitWorldPosition.y,
+                0f
+            );
+        }
 
         if (moved)
         {
@@ -210,5 +241,27 @@ public class BoardManager : MonoBehaviour
     public void RestartLevel()
     {
         LoadLevel(level);
+    }
+    public float GetMaxDragDistanceToTargetExit(CarView car, Vector3 startWorldPosition)
+    {
+        if (!car.IsTarget)
+        {
+            return float.PositiveInfinity;
+        }
+
+        if (car.Orientation != VehicleOrientation.Horizontal)
+        {
+            return float.PositiveInfinity;
+        }
+
+        if (car.Y != level.exitRow)
+        {
+            return float.PositiveInfinity;
+        }
+
+        float carHalfWidth = car.Length * cellSize * 0.5f;
+        float maxCenterX = targetExitWorldPosition.x - carHalfWidth;
+
+        return Mathf.Max(0f, maxCenterX - startWorldPosition.x);
     }
 }
