@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BoardManager : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class BoardManager : MonoBehaviour
     [Header("Board")]
     public float cellSize = 1f;
     public Vector2 boardOrigin = new Vector2(-3f, -3f);
+
+    [Header("UI")]
+    public TMP_Text moveText;
+    public GameObject winPanel;
 
     private readonly List<CarView> cars = new List<CarView>();
     private int moveCount = 0;
@@ -36,6 +41,12 @@ public class BoardManager : MonoBehaviour
 
         cars.Clear();
         moveCount = 0;
+        UpdateMoveText();
+
+        if (winPanel != null)
+        {
+            winPanel.SetActive(false);
+        }
 
         foreach (CarConfig config in level.cars)
         {
@@ -156,6 +167,7 @@ public class BoardManager : MonoBehaviour
         if (moved)
         {
             moveCount++;
+            UpdateMoveText();
             Debug.Log("Moves: " + moveCount);
         }
 
@@ -179,7 +191,24 @@ public class BoardManager : MonoBehaviour
             if (reachedExit)
             {
                 Debug.Log("You Win!");
+
+                if (winPanel != null)
+                {
+                    winPanel.SetActive(true);
+                }
             }
         }
+    }
+    private void UpdateMoveText()
+    {
+        if (moveText != null)
+        {
+            moveText.text = "Moves: " + moveCount;
+        }
+    }
+
+    public void RestartLevel()
+    {
+        LoadLevel(level);
     }
 }
