@@ -22,7 +22,18 @@ public class BoardManager : MonoBehaviour
     public GameObject winPanel;
 
     private readonly List<CarView> cars = new List<CarView>();
+    private readonly Stack<MoveRecord> moveHistory = new Stack<MoveRecord>();
+
     private int moveCount = 0;
+
+    private class MoveRecord
+    {
+        public CarView car;
+        public int oldX;
+        public int oldY;
+        public int newX;
+        public int newY;
+    }
 
     public float CellSize => cellSize;
     public int Width => level.width;
@@ -43,6 +54,7 @@ public class BoardManager : MonoBehaviour
         }
 
         cars.Clear();
+        moveHistory.Clear();
         moveCount = 0;
         UpdateMoveText();
 
@@ -176,6 +188,9 @@ public class BoardManager : MonoBehaviour
     {
         bool moved = car.X != newX || car.Y != newY;
 
+        int oldX = car.X;
+        int oldY = car.Y;
+
         car.SetGridPosition(newX, newY);
 
         bool targetReachedExit =
@@ -197,6 +212,15 @@ public class BoardManager : MonoBehaviour
 
         if (moved)
         {
+            moveHistory.Push(new MoveRecord
+            {
+                car = car,
+                oldX = oldX,
+                oldY = oldY,
+                newX = newX,
+                newY = newY
+            });
+
             moveCount++;
             UpdateMoveText();
             Debug.Log("Moves: " + moveCount);
@@ -263,5 +287,27 @@ public class BoardManager : MonoBehaviour
         float maxCenterX = targetExitWorldPosition.x - carHalfWidth;
 
         return Mathf.Max(0f, maxCenterX - startWorldPosition.x);
+    }
+
+    public void UndoLastMove()
+    {
+        if (moveHistory.Count == 0)
+        {
+            return;
+        }
+
+        MoveRecord lastMove = moveHistory.Pop();
+
+        lastMove.car.SetGridPosition(lastMove.oldX, lastMove.oldY);
+
+        moveCount = Mathf.Max(0, moveCount - 1);
+        UpdateMoveText();
+
+        if (winPanel != null)
+        {
+            winPanel.SetActive(false);
+        }
+
+        Debug.Log("Undo move. Moves: " + moveCount);
     }
 }
