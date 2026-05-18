@@ -4,8 +4,11 @@ using TMPro;
 
 public class BoardManager : MonoBehaviour
 {
-    [Header("Level")]
-    public LevelConfig level;
+    [Header("Levels")]
+    public LevelConfig[] levels;
+    public int currentLevelIndex = 0;
+
+    private LevelConfig CurrentLevel => levels[currentLevelIndex];
 
     [Header("Prefab")]
     public CarView carPrefab;
@@ -20,6 +23,7 @@ public class BoardManager : MonoBehaviour
     [Header("UI")]
     public TMP_Text moveText;
     public GameObject winPanel;
+    public GameObject nextButton;
 
     private readonly List<CarView> cars = new List<CarView>();
     private readonly Stack<MoveRecord> moveHistory = new Stack<MoveRecord>();
@@ -36,17 +40,16 @@ public class BoardManager : MonoBehaviour
     }
 
     public float CellSize => cellSize;
-    public int Width => level.width;
-    public int Height => level.height;
+    public int Width => CurrentLevel.width;
+    public int Height => CurrentLevel.height;
 
     private void Start()
     {
-        LoadLevel(level);
+        LoadCurrentLevel();
     }
 
     public void LoadLevel(LevelConfig levelData)
     {
-        level = levelData;
 
         foreach (Transform child in transform)
         {
@@ -63,7 +66,11 @@ public class BoardManager : MonoBehaviour
             winPanel.SetActive(false);
         }
 
-        foreach (CarConfig config in level.cars)
+        if (nextButton != null)
+        {
+            nextButton.SetActive(false);
+        }
+        foreach (CarConfig config in levelData.cars)
         {
             CarView car = Instantiate(carPrefab, transform);
             car.Init(this, config);
@@ -160,7 +167,7 @@ public class BoardManager : MonoBehaviour
         bool isExitCell =
             movingCar.IsTarget &&
             movingCar.Orientation == VehicleOrientation.Horizontal &&
-            y == level.exitRow &&
+            y == CurrentLevel.exitRow &&
             x == Width;
 
         return isExitCell;
@@ -196,7 +203,7 @@ public class BoardManager : MonoBehaviour
         bool targetReachedExit =
             car.IsTarget &&
             car.Orientation == VehicleOrientation.Horizontal &&
-            car.Y == level.exitRow &&
+            car.Y == CurrentLevel.exitRow &&
             car.X + car.Length >= Width;
 
         if (targetReachedExit)
@@ -240,7 +247,7 @@ public class BoardManager : MonoBehaviour
 
             bool reachedExit =
                 car.Orientation == VehicleOrientation.Horizontal &&
-                car.Y == level.exitRow &&
+                car.Y == CurrentLevel.exitRow &&
                 car.X + car.Length >= Width;
 
             if (reachedExit)
@@ -250,6 +257,11 @@ public class BoardManager : MonoBehaviour
                 if (winPanel != null)
                 {
                     winPanel.SetActive(true);
+                }
+
+                if (nextButton != null)
+                {
+                    nextButton.SetActive(true);
                 }
             }
         }
@@ -264,7 +276,7 @@ public class BoardManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        LoadLevel(level);
+        LoadCurrentLevel();
     }
     public float GetMaxDragDistanceToTargetExit(CarView car, Vector3 startWorldPosition)
     {
@@ -278,7 +290,7 @@ public class BoardManager : MonoBehaviour
             return float.PositiveInfinity;
         }
 
-        if (car.Y != level.exitRow)
+        if (car.Y != CurrentLevel.exitRow)
         {
             return float.PositiveInfinity;
         }
@@ -309,5 +321,32 @@ public class BoardManager : MonoBehaviour
         }
 
         Debug.Log("Undo move. Moves: " + moveCount);
+    }
+    public void LoadCurrentLevel()
+    {
+        if (levels == null || levels.Length == 0)
+        {
+            Debug.LogError("No levels assigned to BoardManager.");
+            return;
+        }
+
+        currentLevelIndex = Mathf.Clamp(currentLevelIndex, 0, levels.Length - 1);
+        LoadLevel(CurrentLevel);
+    }
+    public void NextLevel()
+    {
+        if (levels == null || levels.Length == 0)
+        {
+            return;
+        }
+
+        currentLevelIndex++;
+
+        if (currentLevelIndex >= levels.Length)
+        {
+            currentLevelIndex = 0;
+        }
+
+        LoadCurrentLevel();
     }
 }
