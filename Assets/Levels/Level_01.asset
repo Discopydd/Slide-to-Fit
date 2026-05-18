@@ -43,7 +43,7 @@ MonoBehaviour:
     length: 2
     orientation: 0
     isTarget: 0
-    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    color: {r: 1, g: 0.8431373, b: 0, a: 1}
   - id: D
     x: 3
     y: 5

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class BoardManager : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class BoardManager : MonoBehaviour
     public GameObject nextButton;
     public GameObject gameClearPanel;
 
+    [Header("Scenes")]
+    public string titleSceneName = "TitleScene";
+    public string levelSelectSceneName = "LevelSelectScene";
+
     private readonly List<CarView> cars = new List<CarView>();
     private readonly Stack<MoveRecord> moveHistory = new Stack<MoveRecord>();
 
@@ -47,6 +52,18 @@ public class BoardManager : MonoBehaviour
 
     private void Start()
     {
+        if (levels == null || levels.Length == 0)
+        {
+            Debug.LogError("No levels assigned to BoardManager.");
+            return;
+        }
+
+        currentLevelIndex = Mathf.Clamp(
+            GameSession.SelectedLevelIndex,
+            0,
+            levels.Length - 1
+        );
+
         LoadCurrentLevel();
     }
 
@@ -384,5 +401,30 @@ public class BoardManager : MonoBehaviour
     {
         currentLevelIndex = 0;
         LoadCurrentLevel();
+    }
+    public void LoadLevelByIndex(int index)
+    {
+        if (levels == null || levels.Length == 0)
+        {
+            return;
+        }
+
+        if (index < 0 || index >= levels.Length)
+        {
+            Debug.LogWarning("Level index out of range: " + index);
+            return;
+        }
+
+        currentLevelIndex = index;
+        LoadCurrentLevel();
+    }
+    public void BackToLevelSelect()
+    {
+        SceneManager.LoadScene(levelSelectSceneName);
+    }
+
+    public void BackToTitle()
+    {
+        SceneManager.LoadScene(titleSceneName);
     }
 }
