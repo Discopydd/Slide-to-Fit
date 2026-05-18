@@ -22,8 +22,10 @@ public class BoardManager : MonoBehaviour
 
     [Header("UI")]
     public TMP_Text moveText;
+    public TMP_Text levelText;
     public GameObject winPanel;
     public GameObject nextButton;
+    public GameObject gameClearPanel;
 
     private readonly List<CarView> cars = new List<CarView>();
     private readonly Stack<MoveRecord> moveHistory = new Stack<MoveRecord>();
@@ -60,6 +62,7 @@ public class BoardManager : MonoBehaviour
         moveHistory.Clear();
         moveCount = 0;
         UpdateMoveText();
+        UpdateLevelText();
 
         if (winPanel != null)
         {
@@ -69,6 +72,11 @@ public class BoardManager : MonoBehaviour
         if (nextButton != null)
         {
             nextButton.SetActive(false);
+        }
+
+        if (gameClearPanel != null)
+        {
+            gameClearPanel.SetActive(false);
         }
         foreach (CarConfig config in levelData.cars)
         {
@@ -254,14 +262,31 @@ public class BoardManager : MonoBehaviour
             {
                 Debug.Log("You Win!");
 
-                if (winPanel != null)
-                {
-                    winPanel.SetActive(true);
-                }
+                bool isLastLevel = currentLevelIndex >= levels.Length - 1;
 
-                if (nextButton != null)
+                if (isLastLevel)
                 {
-                    nextButton.SetActive(true);
+                    if (gameClearPanel != null)
+                    {
+                        gameClearPanel.SetActive(true);
+                    }
+
+                    if (nextButton != null)
+                    {
+                        nextButton.SetActive(false);
+                    }
+                }
+                else
+                {
+                    if (winPanel != null)
+                    {
+                        winPanel.SetActive(true);
+                    }
+
+                    if (nextButton != null)
+                    {
+                        nextButton.SetActive(true);
+                    }
                 }
             }
         }
@@ -340,13 +365,24 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
-        currentLevelIndex++;
-
-        if (currentLevelIndex >= levels.Length)
+        if (currentLevelIndex >= levels.Length - 1)
         {
-            currentLevelIndex = 0;
+            return;
         }
 
+        currentLevelIndex++;
+        LoadCurrentLevel();
+    }
+    private void UpdateLevelText()
+    {
+        if (levelText != null && levels != null && levels.Length > 0)
+        {
+            levelText.text = "Level " + (currentLevelIndex + 1) + " / " + levels.Length;
+        }
+    }
+    public void BackToFirstLevel()
+    {
+        currentLevelIndex = 0;
         LoadCurrentLevel();
     }
 }
