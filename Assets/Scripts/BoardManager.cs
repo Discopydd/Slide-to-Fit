@@ -69,6 +69,17 @@ public class BoardManager : MonoBehaviour
 
     public void LoadLevel(LevelConfig levelData)
     {
+        if (levelData == null)
+        {
+            Debug.LogError("LoadLevel failed: levelData is null.");
+            return;
+        }
+
+        if (levelData.cars == null)
+        {
+            Debug.LogError("LoadLevel failed: cars array is null in " + levelData.name);
+            return;
+        }
 
         foreach (Transform child in transform)
         {
@@ -373,7 +384,14 @@ public class BoardManager : MonoBehaviour
         }
 
         currentLevelIndex = Mathf.Clamp(currentLevelIndex, 0, levels.Length - 1);
-        LoadLevel(CurrentLevel);
+
+        if (levels[currentLevelIndex] == null)
+        {
+            Debug.LogError("Level is missing at index: " + currentLevelIndex);
+            return;
+        }
+
+        LoadLevel(levels[currentLevelIndex]);
     }
     public void NextLevel()
     {

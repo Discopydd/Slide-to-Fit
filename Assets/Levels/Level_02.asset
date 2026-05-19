@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 36085cd43cc61b947afa1e6f1905e7ca, type: 3}
   m_Name: Level_02
   m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
   width: 6
