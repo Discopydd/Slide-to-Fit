@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Renderer))]
+[RequireComponent(typeof(BoxCollider))]
 public class CarView : MonoBehaviour
 {
     public string Id { get; private set; }
@@ -34,7 +34,7 @@ public class CarView : MonoBehaviour
         Orientation = config.orientation;
         IsTarget = config.isTarget;
 
-        GetComponent<SpriteRenderer>().color = config.color;
+        ApplyColor(config.color);
 
         ApplySize();
         SnapToGrid();
@@ -48,19 +48,16 @@ public class CarView : MonoBehaviour
             ? Length * board.CellSize - gap
             : board.CellSize - gap;
 
-        float height = Orientation == VehicleOrientation.Vertical
+        float depth = Orientation == VehicleOrientation.Vertical
             ? Length * board.CellSize - gap
             : board.CellSize - gap;
 
-        transform.localScale = new Vector3(width, height, 1f);
+        transform.localScale = new Vector3(width, board.CarHeight, depth);
     }
 
     private void OnMouseDown()
     {
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouse.z = 0f;
-
-        dragStartWorld = mouse;
+        dragStartWorld = GetMouseWorldOnDragPlane();
         dragStartCarWorld = transform.position;
 
         dragStartX = X;
@@ -87,9 +84,7 @@ public class CarView : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouse.z = 0f;
-
+        Vector3 mouse = GetMouseWorldOnDragPlane();
         Vector3 delta = mouse - dragStartWorld;
 
         float rawDistance;
@@ -100,7 +95,7 @@ public class CarView : MonoBehaviour
         }
         else
         {
-            rawDistance = delta.y;
+            rawDistance = delta.z;
         }
 
         currentDragDistance = Mathf.Clamp(
@@ -117,7 +112,7 @@ public class CarView : MonoBehaviour
         }
         else
         {
-            offset = new Vector3(0f, currentDragDistance, 0f);
+            offset = new Vector3(0f, 0f, currentDragDistance);
         }
 
         transform.position = dragStartCarWorld + offset;
@@ -140,6 +135,23 @@ public class CarView : MonoBehaviour
         }
 
         board.CommitMove(this, newX, newY);
+    }
+
+    private Vector3 GetMouseWorldOnDragPlane()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        Plane dragPlane = new Plane(
+            Vector3.up,
+            new Vector3(0f, board.CarHeight * 0.5f, 0f)
+        );
+
+        if (dragPlane.Raycast(ray, out float distance))
+        {
+            return ray.GetPoint(distance);
+        }
+
+        return transform.position;
     }
 
     public void SetGridPosition(int x, int y)
@@ -168,5 +180,26 @@ public class CarView : MonoBehaviour
         }
 
         return false;
+    }
+    private void ApplyColor(Color color)
+    {
+        color.a = 1f;
+
+        Renderer renderer = GetComponent<Renderer>();
+
+        Material material = renderer.material;
+
+        if (material.HasProperty("_BaseColor"))
+        {
+            material.SetColor("_BaseColor", color);
+        }
+        else if (material.HasProperty("_Color"))
+        {
+            material.SetColor("_Color", color);
+        }
+        else
+        {
+            Debug.LogWarning("Material has no color property: " + material.name);
+        }
     }
 }
