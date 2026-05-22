@@ -10,6 +10,7 @@ public class CarConfig
     public VehicleOrientation orientation;
     public bool isTarget;
     public Color color = Color.gray;
+    public Vector3 scale = Vector3.one;
 }
 
 [CreateAssetMenu(menuName = "Rush Hour/Level Config")]

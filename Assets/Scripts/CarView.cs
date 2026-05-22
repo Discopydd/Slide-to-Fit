@@ -15,6 +15,7 @@ public class CarView : MonoBehaviour
 
     private Vector3 dragStartWorld;
     private Vector3 dragStartCarWorld;
+    private Vector3 customScale = Vector3.one;
 
     private int dragStartX;
     private int dragStartY;
@@ -34,6 +35,8 @@ public class CarView : MonoBehaviour
         Orientation = config.orientation;
         IsTarget = config.isTarget;
 
+        customScale = config.scale;
+
         ApplyColor(config.color);
 
         ApplySize();
@@ -52,7 +55,11 @@ public class CarView : MonoBehaviour
             ? Length * board.CellSize - gap
             : board.CellSize - gap;
 
-        transform.localScale = new Vector3(width, board.CarHeight, depth);
+        transform.localScale = new Vector3(
+            width * customScale.x,
+            board.CarHeight * customScale.y,
+            depth * customScale.z
+        );
     }
 
     private void OnMouseDown()

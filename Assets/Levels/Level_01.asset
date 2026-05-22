@@ -23,6 +23,7 @@ MonoBehaviour:
     orientation: 0
     isTarget: 1
     color: {r: 1, g: 0, b: 0, a: 1}
+    scale: {x: 1, y: 1, z: 1}
   - id: A
     x: 2
     y: 2
@@ -30,6 +31,7 @@ MonoBehaviour:
     orientation: 1
     isTarget: 0
     color: {r: 0, g: 0, b: 1, a: 1}
+    scale: {x: 1, y: 1, z: 1}
   - id: B
     x: 4
     y: 0
@@ -37,6 +39,7 @@ MonoBehaviour:
     orientation: 1
     isTarget: 0
     color: {r: 0, g: 1, b: 0, a: 1}
+    scale: {x: 1, y: 1, z: 1}
   - id: C
     x: 0
     y: 0
@@ -44,6 +47,7 @@ MonoBehaviour:
     orientation: 0
     isTarget: 0
     color: {r: 1, g: 0.8431373, b: 0, a: 1}
+    scale: {x: 1, y: 1, z: 1}
   - id: D
     x: 3
     y: 5
@@ -51,3 +55,4 @@ MonoBehaviour:
     orientation: 0
     isTarget: 0
     color: {r: 0, g: 1, b: 1, a: 1}
+    scale: {x: 1, y: 1, z: 1}
