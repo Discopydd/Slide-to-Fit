@@ -2297,6 +2297,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b338b12ef486b9f409b621f0f9eab476, type: 2}
   - {fileID: 11400000, guid: 6549a7774da043447ae6d2e559fd0ee7, type: 2}
   - {fileID: 11400000, guid: 67124a8f1b2b37a41a7f64fbbd18d591, type: 2}
+  - {fileID: 11400000, guid: 57fb72b58d24cfa49a9a317f897c2ba6, type: 2}
+  - {fileID: 11400000, guid: d669dca0ae22212409807b65f8d14a8a, type: 2}
+  - {fileID: 11400000, guid: b4b2db9e10392aa4daa726c043436a2a, type: 2}
   currentLevelIndex: 0
   carPrefab: {fileID: -8456509115924592867, guid: f83c275197f545b42846b38352348532, type: 3}
   cellSize: 1
