@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36085cd43cc61b947afa1e6f1905e7ca, type: 3}
-  m_Name: Level_03
+  m_Name: Level_04
   m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
   width: 6
   height: 6
@@ -22,69 +22,85 @@ MonoBehaviour:
     length: 2
     orientation: 0
     isTarget: 1
-    color: {r: 1, g: 0, b: 0, a: 1}
+    color: {r: 1, g: 0, b: 0, a: 0}
     scale: {x: 1, y: 1, z: 1}
   - id: A
-    x: 2
-    y: 0
-    length: 3
-    orientation: 1
-    isTarget: 0
-    color: {r: 0, g: 0, b: 1, a: 1}
-    scale: {x: 1, y: 1, z: 1}
-  - id: B
-    x: 3
-    y: 1
-    length: 2
-    orientation: 1
-    isTarget: 0
-    color: {r: 0, g: 1, b: 0, a: 1}
-    scale: {x: 1, y: 1, z: 1}
-  - id: C
-    x: 5
-    y: 0
-    length: 3
-    orientation: 1
-    isTarget: 0
-    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-    scale: {x: 1, y: 1, z: 1}
-  - id: D
-    x: 4
-    y: 3
+    x: 0
+    y: 5
     length: 2
     orientation: 0
     isTarget: 0
-    color: {r: 0, g: 1, b: 1, a: 1}
+    color: {r: 0, g: 0, b: 0, a: 0}
     scale: {x: 1, y: 1, z: 1}
-  - id: E
+  - id: B
+    x: 2
+    y: 4
+    length: 2
+    orientation: 1
+    isTarget: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: C
+    x: 3
+    y: 5
+    length: 2
+    orientation: 0
+    isTarget: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: D
     x: 4
     y: 4
     length: 2
     orientation: 0
     isTarget: 0
-    color: {r: 1, g: 0, b: 1, a: 1}
+    color: {r: 0, g: 0, b: 0, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: E
+    x: 0
+    y: 3
+    length: 3
+    orientation: 0
+    isTarget: 0
+    color: {r: 0.30796012, g: 0.6301887, b: 0.38532633, a: 0}
     scale: {x: 1, y: 1, z: 1}
   - id: F
+    x: 3
+    y: 1
+    length: 2
+    orientation: 1
+    isTarget: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: G
+    x: 4
+    y: 2
+    length: 2
+    orientation: 1
+    isTarget: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: H
+    x: 5
+    y: 1
+    length: 3
+    orientation: 1
+    isTarget: 0
+    color: {r: 0.30980393, g: 0.6313726, b: 0.38431373, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: I
     x: 0
     y: 0
     length: 2
-    orientation: 0
+    orientation: 1
     isTarget: 0
-    color: {r: 1, g: 0.6470588, b: 0, a: 1}
+    color: {r: 0, g: 0, b: 0, a: 0}
     scale: {x: 1, y: 1, z: 1}
-  - id: G
-    x: 0
-    y: 5
-    length: 2
-    orientation: 0
-    isTarget: 0
-    color: {r: 0.9333334, g: 0.509804, b: 0.9333334, a: 1}
-    scale: {x: 1, y: 1, z: 1}
-  - id: H
+  - id: J
     x: 3
-    y: 5
-    length: 2
+    y: 0
+    length: 3
     orientation: 0
     isTarget: 0
-    color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    color: {r: 0.30980393, g: 0.6313726, b: 0.38431373, a: 0}
     scale: {x: 1, y: 1, z: 1}

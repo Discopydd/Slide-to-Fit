@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36085cd43cc61b947afa1e6f1905e7ca, type: 3}
+  m_Name: Level_06
+  m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
+  width: 6
+  height: 6
+  exitRow: 2
+  cars:
+  - id: Red
+    x: 1
+    y: 2
+    length: 2
+    orientation: 0
+    isTarget: 1
+    color: {r: 1, g: 0, b: 0, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: A
+    x: 0
+    y: 4
+    length: 2
+    orientation: 1
+    isTarget: 0
+    color: {r: 0.061840296, g: 1, b: 0, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: B
+    x: 4
+    y: 5
+    length: 2
+    orientation: 0
+    isTarget: 0
+    color: {r: 0.5849056, g: 0.21078674, b: 0.437823, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: C
+    x: 4
+    y: 4
+    length: 2
+    orientation: 0
+    isTarget: 0
+    color: {r: 0.63408965, g: 0.40392157, b: 0.6901961, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: D
+    x: 0
+    y: 1
+    length: 3
+    orientation: 1
+    isTarget: 0
+    color: {r: 0.40392157, g: 0.6901961, b: 0.49227303, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: E
+    x: 1
+    y: 3
+    length: 3
+    orientation: 0
+    isTarget: 0
+    color: {r: 0.3258455, g: 0.509434, b: 0.38368845, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: F
+    x: 3
+    y: 0
+    length: 3
+    orientation: 1
+    isTarget: 0
+    color: {r: 0.049035255, g: 0.3660378, b: 0.14891276, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: G
+    x: 4
+    y: 1
+    length: 3
+    orientation: 1
+    isTarget: 0
+    color: {r: 0.05098039, g: 0.28124997, b: 0.3647059, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: H
+    x: 5
+    y: 2
+    length: 2
+    orientation: 1
+    isTarget: 0
+    color: {r: 0.31664643, g: 0.4810914, b: 0.5396226, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: I
+    x: 5
+    y: 0
+    length: 2
+    orientation: 1
+    isTarget: 0
+    color: {r: 0.5397152, g: 0.75652885, b: 0.83396226, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: J
+    x: 0
+    y: 0
+    length: 2
+    orientation: 0
+    isTarget: 0
+    color: {r: 0.4566037, g: 0.14387321, b: 0.18213303, a: 0}
+    scale: {x: 1, y: 1, z: 1}

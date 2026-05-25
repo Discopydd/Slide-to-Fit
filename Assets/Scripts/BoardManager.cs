@@ -359,6 +359,10 @@ public class BoardManager : MonoBehaviour
 
     public void UndoLastMove()
     {
+
+        if (winPanel != null && winPanel.activeSelf) return;
+        if (gameClearPanel != null && gameClearPanel.activeSelf) return;
+
         if (moveHistory.Count == 0)
         {
             return;
