@@ -332,7 +332,7 @@ public class BoardManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        LoadCurrentLevel();
+        Invoke("LoadCurrentLevel", 0.2f);
     }
     public float GetMaxDragDistanceToTargetExit(CarView car, Vector3 startWorldPosition)
     {
@@ -413,7 +413,7 @@ public class BoardManager : MonoBehaviour
         }
 
         currentLevelIndex++;
-        LoadCurrentLevel();
+        Invoke("LoadCurrentLevel", 0.2f);
     }
     private void UpdateLevelText()
     {
@@ -425,7 +425,12 @@ public class BoardManager : MonoBehaviour
     public void BackToFirstLevel()
     {
         currentLevelIndex = 0;
-        LoadCurrentLevel();
+        Invoke("LoadLevelSelectScene", 0.2f);
+    }
+
+    private void LoadLevelSelectScene()
+    {
+        SceneManager.LoadScene(levelSelectSceneName);
     }
     public void LoadLevelByIndex(int index)
     {
@@ -445,10 +450,14 @@ public class BoardManager : MonoBehaviour
     }
     public void BackToLevelSelect()
     {
-        SceneManager.LoadScene(levelSelectSceneName);
+        Invoke("LoadLevelSelectScene", 0.2f);
     }
 
     public void BackToTitle()
+    {
+        Invoke("LoadTitleScene", 0.2f);
+    }
+    private void LoadTitleScene()
     {
         SceneManager.LoadScene(titleSceneName);
     }

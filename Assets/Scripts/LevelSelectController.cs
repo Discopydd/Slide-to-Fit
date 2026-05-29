@@ -9,10 +9,20 @@ public class LevelSelectController : MonoBehaviour
     public void SelectLevel(int levelIndex)
     {
         GameSession.SelectedLevelIndex = levelIndex;
+        Invoke("LoadGameScene", 0.2f);
+    }
+
+    private void LoadGameScene()
+    {
         SceneManager.LoadScene(gameSceneName);
     }
 
     public void BackToTitle()
+    {
+        Invoke("LoadTitleScene", 0.2f);
+    }
+
+    private void LoadTitleScene()
     {
         SceneManager.LoadScene(titleSceneName);
     }
