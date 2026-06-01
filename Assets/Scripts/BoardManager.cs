@@ -5,10 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class BoardManager : MonoBehaviour
 {
-    [Header("Levels")]
+    [HideInInspector]
     public LevelConfig[] levels;
-    public int currentLevelIndex = 0;
 
+    [Header("Difficulty Levels")]
+    public LevelConfig[] easyLevels;
+    public LevelConfig[] normalLevels;
+    public LevelConfig[] hardLevels;
+
+    public int currentLevelIndex = 0;
     private LevelConfig CurrentLevel => levels[currentLevelIndex];
 
     [Header("Prefab")]
@@ -33,7 +38,8 @@ public class BoardManager : MonoBehaviour
 
     [Header("Scenes")]
     public string titleSceneName = "TitleScene";
-    public string levelSelectSceneName = "LevelSelectScene";
+    [HideInInspector]
+    public string levelSelectSceneName;
 
     private readonly List<CarView> cars = new List<CarView>();
     private readonly Stack<MoveRecord> moveHistory = new Stack<MoveRecord>();
@@ -55,6 +61,22 @@ public class BoardManager : MonoBehaviour
 
     private void Start()
     {
+        if (GameSession.Difficulty == 0)
+        {
+            levels = easyLevels;
+            levelSelectSceneName = "LevelSelectScene";
+        }
+        else if (GameSession.Difficulty == 1)
+        {
+            levels = normalLevels;
+            levelSelectSceneName = "NormalLevelSelectScene";
+        }
+        else if (GameSession.Difficulty == 2)
+        {
+            levels = hardLevels;
+            levelSelectSceneName = "HardLevelSelectScene";
+        }
+
         if (levels == null || levels.Length == 0)
         {
             Debug.LogError("No levels assigned to BoardManager.");
@@ -332,7 +354,7 @@ public class BoardManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        LoadCurrentLevel();
+        Invoke("LoadCurrentLevel", 0.2f);
     }
     public float GetMaxDragDistanceToTargetExit(CarView car, Vector3 startWorldPosition)
     {
@@ -413,7 +435,7 @@ public class BoardManager : MonoBehaviour
         }
 
         currentLevelIndex++;
-        LoadCurrentLevel();
+        Invoke("LoadCurrentLevel", 0.2f);
     }
     private void UpdateLevelText()
     {
@@ -425,7 +447,12 @@ public class BoardManager : MonoBehaviour
     public void BackToFirstLevel()
     {
         currentLevelIndex = 0;
-        LoadCurrentLevel();
+        Invoke("LoadLevelSelectScene", 0.2f);
+    }
+
+    private void LoadLevelSelectScene()
+    {
+        SceneManager.LoadScene(levelSelectSceneName);
     }
     public void LoadLevelByIndex(int index)
     {
@@ -445,10 +472,14 @@ public class BoardManager : MonoBehaviour
     }
     public void BackToLevelSelect()
     {
-        SceneManager.LoadScene(levelSelectSceneName);
+        Invoke("LoadLevelSelectScene", 0.2f);
     }
 
     public void BackToTitle()
+    {
+        Invoke("LoadTitleScene", 0.2f);
+    }
+    private void LoadTitleScene()
     {
         SceneManager.LoadScene(titleSceneName);
     }
