@@ -27,30 +27,30 @@ MonoBehaviour:
   - id: H-1
     x: 0
     y: 5
-    length: 2
+    length: 3
     orientation: 0
     isTarget: 0
     color: {r: 0.061840296, g: 1, b: 0, a: 0}
     scale: {x: 1, y: 1, z: 1}
   - id: H-2
-    x: 0
-    y: 0
+    x: 3
+    y: 3
     length: 3
     orientation: 0
     isTarget: 0
     color: {r: 0.23286436, g: 0.6377357, b: 0.20576, a: 0}
     scale: {x: 1, y: 1, z: 1}
   - id: H-3
-    x: 3
-    y: 2
-    length: 3
+    x: 1
+    y: 0
+    length: 2
     orientation: 0
     isTarget: 0
     color: {r: 0.12514772, g: 0.14106484, b: 0.23773581, a: 0}
     scale: {x: 1, y: 1, z: 1}
   - id: V-1
     x: 0
-    y: 3
+    y: 0
     length: 2
     orientation: 1
     isTarget: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
     scale: {x: 1, y: 1, z: 1}
   - id: V-2
     x: 2
-    y: 2
+    y: 1
     length: 3
     orientation: 1
     isTarget: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
     scale: {x: 1, y: 1, z: 1}
   - id: V-3
     x: 4
-    y: 0
+    y: 4
     length: 2
     orientation: 1
     isTarget: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
     scale: {x: 1, y: 1, z: 1}
   - id: V-4
     x: 5
-    y: 3
+    y: 0
     length: 3
     orientation: 1
     isTarget: 0
