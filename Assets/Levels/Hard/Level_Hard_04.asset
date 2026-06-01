@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36085cd43cc61b947afa1e6f1905e7ca, type: 3}
+  m_Name: Level_Hard_04
+  m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
+  width: 6
+  height: 6
+  exitRow: 2
+  cars:
+  - id: Red
+    x: 2
+    y: 2
+    length: 2
+    orientation: 0
+    isTarget: 1
+    color: {r: 1, g: 0, b: 0, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: H-1
+    x: 0
+    y: 5
+    length: 2
+    orientation: 0
+    isTarget: 0
+    color: {r: 0, g: 1, b: 0.29277372, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: H-2
+    x: 0
+    y: 4
+    length: 3
+    orientation: 0
+    isTarget: 0
+    color: {r: 0.4566037, g: 0.026706986, b: 0.27435976, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: H-3
+    x: 1
+    y: 3
+    length: 2
+    orientation: 0
+    isTarget: 0
+    color: {r: 0.15933777, g: 0.6075471, b: 0.59472996, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: H-4
+    x: 3
+    y: 0
+    length: 2
+    orientation: 0
+    isTarget: 0
+    color: {r: 0.36980408, g: 0.37816647, b: 0.98490566, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: V-1
+    x: 0
+    y: 2
+    length: 2
+    orientation: 1
+    isTarget: 0
+    color: {r: 0.68900603, g: 0.98490566, b: 0.2806052, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: V-2
+    x: 1
+    y: 1
+    length: 2
+    orientation: 1
+    isTarget: 0
+    color: {r: 0.6296593, g: 0.6528301, b: 0.0036952114, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: V-3
+    x: 2
+    y: 0
+    length: 2
+    orientation: 1
+    isTarget: 0
+    color: {r: 0.6622641, g: 0.77138937, b: 1, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: V-4
+    x: 4
+    y: 4
+    length: 2
+    orientation: 1
+    isTarget: 0
+    color: {r: 0.5773585, g: 0.32571733, b: 0.52847826, a: 0}
+    scale: {x: 1, y: 1, z: 1}
+  - id: V-5
+    x: 4
+    y: 2
+    length: 2
+    orientation: 1
+    isTarget: 0
+    color: {r: 0.102847986, g: 0.34846696, b: 0.509434, a: 0}
+    scale: {x: 1, y: 1, z: 1}

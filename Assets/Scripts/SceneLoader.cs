@@ -3,16 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public string levelSelectSceneName = "LevelSelectScene";
+    public string difficultySceneName = "DifficultySelectScene";
 
     public void PlayGame()
     {
-        Invoke("LoadLevelSelectScene", 0.2f);
+        Invoke("LoadDifficultyScene", 0.2f);
     }
 
-    private void LoadLevelSelectScene()
+    private void LoadDifficultyScene()
     {
-        SceneManager.LoadScene(levelSelectSceneName);
+        SceneManager.LoadScene(difficultySceneName);
     }
 
     public void QuitGame()

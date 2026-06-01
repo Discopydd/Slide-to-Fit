@@ -2654,6 +2654,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 57fb72b58d24cfa49a9a317f897c2ba6, type: 2}
   - {fileID: 11400000, guid: d669dca0ae22212409807b65f8d14a8a, type: 2}
   - {fileID: 11400000, guid: b4b2db9e10392aa4daa726c043436a2a, type: 2}
+  easyLevels:
+  - {fileID: 11400000, guid: b338b12ef486b9f409b621f0f9eab476, type: 2}
+  - {fileID: 11400000, guid: 6549a7774da043447ae6d2e559fd0ee7, type: 2}
+  - {fileID: 11400000, guid: 67124a8f1b2b37a41a7f64fbbd18d591, type: 2}
+  - {fileID: 11400000, guid: 57fb72b58d24cfa49a9a317f897c2ba6, type: 2}
+  - {fileID: 11400000, guid: d669dca0ae22212409807b65f8d14a8a, type: 2}
+  - {fileID: 11400000, guid: b4b2db9e10392aa4daa726c043436a2a, type: 2}
+  normalLevels:
+  - {fileID: 11400000, guid: b8e1be7dae9441348b7c1fc97c7164c5, type: 2}
+  - {fileID: 11400000, guid: 48204a8c0ace3c04989b93a94176cc7f, type: 2}
+  - {fileID: 11400000, guid: fca846b689b1849408e8e55bbf378679, type: 2}
+  - {fileID: 11400000, guid: 9fea8f3b6f285084d803f74aa666f5f8, type: 2}
+  - {fileID: 11400000, guid: f1b7a936d98055a4a9d431ab836469c7, type: 2}
+  hardLevels:
+  - {fileID: 11400000, guid: 0e8976e61fbe8e543ba8344010343179, type: 2}
+  - {fileID: 11400000, guid: 9b3060dde70968b4990ae7f5ea1b2082, type: 2}
+  - {fileID: 11400000, guid: 760385f306dcf684680ef89ab55d7484, type: 2}
+  - {fileID: 11400000, guid: 2dbbc76eec6cab1419c476b510b6766d, type: 2}
   currentLevelIndex: 0
   carPrefab: {fileID: -8456509115924592867, guid: f83c275197f545b42846b38352348532, type: 3}
   cellSize: 1

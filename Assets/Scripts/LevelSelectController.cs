@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelectController : MonoBehaviour
 {
-    public string titleSceneName = "TitleScene";
+    public string difficultySceneName = "DifficultySelectScene";
     public string gameSceneName = "MainScene";
 
     public void SelectLevel(int levelIndex)
@@ -19,11 +19,11 @@ public class LevelSelectController : MonoBehaviour
 
     public void BackToTitle()
     {
-        Invoke("LoadTitleScene", 0.2f);
+        Invoke("LoadDifficultyScene", 0.2f);
     }
 
-    private void LoadTitleScene()
+    private void LoadDifficultyScene()
     {
-        SceneManager.LoadScene(titleSceneName);
+        SceneManager.LoadScene(difficultySceneName);
     }
 }
