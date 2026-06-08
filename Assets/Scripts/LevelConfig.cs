@@ -11,6 +11,8 @@ public class CarConfig
     public bool isTarget;
     public Color color = Color.gray;
     public Vector3 scale = Vector3.one;
+
+    public Sprite surfaceSprite;
 }
 
 [CreateAssetMenu(menuName = "Rush Hour/Level Config")]
