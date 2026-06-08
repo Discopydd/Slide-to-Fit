@@ -37,7 +37,7 @@ public class CarView : MonoBehaviour
 
         customScale = config.scale;
 
-        ApplyColor(config.color);
+        ApplySurface(config);
 
         ApplySize();
         SnapToGrid();
@@ -207,6 +207,59 @@ public class CarView : MonoBehaviour
         else
         {
             Debug.LogWarning("Material has no color property: " + material.name);
+        }
+    }
+    private void ApplySurface(CarConfig config)
+    {
+        Renderer renderer = GetComponent<Renderer>();
+        Material material = renderer.material;
+
+        Sprite sprite = config.surfaceSprite;
+
+        if (sprite != null)
+        {
+            Texture texture = sprite.texture;
+
+            if (material.HasProperty("_BaseMap"))
+            {
+                material.SetTexture("_BaseMap", texture);
+            }
+            else if (material.HasProperty("_MainTex"))
+            {
+                material.SetTexture("_MainTex", texture);
+            }
+
+            if (material.HasProperty("_BaseColor"))
+            {
+                material.SetColor("_BaseColor", Color.white);
+            }
+            else if (material.HasProperty("_Color"))
+            {
+                material.SetColor("_Color", Color.white);
+            }
+        }
+        else
+        {
+            if (material.HasProperty("_BaseMap"))
+            {
+                material.SetTexture("_BaseMap", null);
+            }
+            else if (material.HasProperty("_MainTex"))
+            {
+                material.SetTexture("_MainTex", null);
+            }
+
+            Color color = config.color;
+            color.a = 1f;
+
+            if (material.HasProperty("_BaseColor"))
+            {
+                material.SetColor("_BaseColor", color);
+            }
+            else if (material.HasProperty("_Color"))
+            {
+                material.SetColor("_Color", color);
+            }
         }
     }
 }
