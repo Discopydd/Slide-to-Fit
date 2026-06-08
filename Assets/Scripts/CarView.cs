@@ -24,6 +24,19 @@ public class CarView : MonoBehaviour
     private float maxDragDistance;
     private float currentDragDistance;
 
+    [Header("Outline Settings")]
+    public float outlineWidth = 0.02f;       // Outline Thickness
+    public Color outlineColor = Color.black; // Outline Color
+
+    private LineRenderer[] edgeLines = new LineRenderer[12];
+
+  
+    private readonly string[] edgeNames = new string[12] {
+        "Top_Front", "Top_Back", "Top_Left", "Top_Right",
+        "Bottom_Front", "Bottom_Back", "Bottom_Left", "Bottom_Right",
+        "Pillar_FrontLeft", "Pillar_FrontRight", "Pillar_BackLeft", "Pillar_BackRight"
+    };
+
     public void Init(BoardManager boardManager, CarConfig config)
     {
         board = boardManager;
@@ -41,6 +54,7 @@ public class CarView : MonoBehaviour
 
         ApplySize();
         SnapToGrid();
+        CreateOutlines();
     }
 
     private void ApplySize()
@@ -60,6 +74,11 @@ public class CarView : MonoBehaviour
             board.CarHeight * customScale.y,
             depth * customScale.z
         );
+    }
+
+    private void Update()
+    {
+        UpdateOutlines();
     }
 
     private void OnMouseDown()
@@ -150,7 +169,7 @@ public class CarView : MonoBehaviour
 
         Plane dragPlane = new Plane(
             Vector3.up,
-            new Vector3(0f, board.CarHeight * 0.5f, 0f)
+            new Vector3(0f, board.CarHeight * 0.5f + 0.08f, 0f)
         );
 
         if (dragPlane.Raycast(ray, out float distance))
@@ -209,4 +228,93 @@ public class CarView : MonoBehaviour
             Debug.LogWarning("Material has no color property: " + material.name);
         }
     }
+
+    private void CreateOutlines()
+    {
+        Material lineMat = new Material(Shader.Find("Sprites/Default"));
+
+        for (int i = 0; i < 12; i++)
+        {
+            GameObject lineObj = new GameObject(edgeNames[i]);
+            lineObj.transform.SetParent(transform);
+
+            LineRenderer lr = lineObj.AddComponent<LineRenderer>();
+            lr.positionCount = 2;
+            lr.startWidth = outlineWidth;
+            lr.endWidth = outlineWidth;
+            lr.material = lineMat;
+            lr.startColor = outlineColor;
+            lr.endColor = outlineColor;
+
+            lr.numCapVertices = 5;
+
+            lr.useWorldSpace = true;
+            lr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            lr.receiveShadows = false;
+
+            edgeLines[i] = lr;
+        }
+    }
+
+    private void UpdateOutlines()
+    {
+        if (edgeLines == null || edgeLines[0] == null) return;
+
+        Vector3 center = transform.position;
+
+        Vector3 padding = new Vector3(0.01f, 0.01f, 0.01f);
+        Vector3 extents = (transform.localScale * 0.5f) + padding;
+
+        Vector3 tFL = center + new Vector3(-extents.x, extents.y, extents.z);
+        Vector3 tFR = center + new Vector3(extents.x, extents.y, extents.z);
+        Vector3 tBL = center + new Vector3(-extents.x, extents.y, -extents.z);
+        Vector3 tBR = center + new Vector3(extents.x, extents.y, -extents.z);
+
+        Vector3 bFL = center + new Vector3(-extents.x, -extents.y, extents.z);
+        Vector3 bFR = center + new Vector3(extents.x, -extents.y, extents.z);
+        Vector3 bBL = center + new Vector3(-extents.x, -extents.y, -extents.z);
+        Vector3 bBR = center + new Vector3(extents.x, -extents.y, -extents.z);
+
+        SetLinePosition(0, tFL, tFR);  // Top_Front
+        SetLinePosition(1, tBL, tBR);  // Top_Back
+        SetLinePosition(2, tFL, tBL);  // Top_Left
+        SetLinePosition(3, tFR, tBR);  // Top_Right
+
+        SetLinePosition(4, bFL, bFR);  // Bottom_Front
+        SetLinePosition(5, bBL, bBR);  // Bottom_Back
+        SetLinePosition(6, bFL, bBL);  // Bottom_Left
+        SetLinePosition(7, bFR, bBR);  // Bottom_Right
+
+        SetLinePosition(8, tFL, bFL);  // Pillar_FrontLeft
+        SetLinePosition(9, tFR, bFR);  // Pillar_FrontRight
+        SetLinePosition(10, tBL, bBL); // Pillar_BackLeft
+        SetLinePosition(11, tBR, bBR); // Pillar_BackRight
+    }
+
+
+    private void SetLinePosition(int index, Vector3 start, Vector3 end)
+    {
+        if (edgeLines[index] != null && edgeLines[index].gameObject.activeSelf)
+        {
+            edgeLines[index].startWidth = outlineWidth;
+            edgeLines[index].endWidth = outlineWidth;
+
+            edgeLines[index].SetPosition(0, start);
+            edgeLines[index].SetPosition(1, end);
+        }
+    }
+
+    
+    public void ToggleEdge(string edgeName, bool isVisible)
+    {
+        for (int i = 0; i < 12; i++)
+        {
+            if (edgeNames[i] == edgeName && edgeLines[i] != null)
+            {
+                edgeLines[i].gameObject.SetActive(isVisible);
+                break;
+            }
+        }
+    }
 }
+
