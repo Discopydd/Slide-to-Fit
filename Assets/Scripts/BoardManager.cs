@@ -37,6 +37,10 @@ public class BoardManager : MonoBehaviour
     public GameObject gameClearPanel;
     public GameObject helpPanel;
 
+    [Header("Audio")]
+    public AudioSource audioSource; 
+    public AudioClip moveSound;
+
     [Header("Scenes")]
     public string titleSceneName = "TitleScene";
     [HideInInspector]
@@ -273,10 +277,10 @@ public class BoardManager : MonoBehaviour
             float carHalfWidth = car.Length * cellSize * 0.5f;
 
             car.transform.position = new Vector3(
-    targetExitWorldPosition.x - carHalfWidth,
-    carHeight * 0.5f,
-    targetExitWorldPosition.y
-);
+                targetExitWorldPosition.x - carHalfWidth,
+                carHeight * 0.5f,
+                targetExitWorldPosition.y
+            );
         }
 
         if (moved)
@@ -293,6 +297,11 @@ public class BoardManager : MonoBehaviour
             moveCount++;
             UpdateMoveText();
             Debug.Log("Moves: " + moveCount);
+
+            if (audioSource != null && moveSound != null)
+            {
+                audioSource.PlayOneShot(moveSound);
+            }
         }
 
         CheckWin();
