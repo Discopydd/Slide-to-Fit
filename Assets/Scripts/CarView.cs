@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(BoxCollider))]
@@ -64,6 +65,8 @@ public class CarView : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (board.IsInputBlocked()) return;
+
         dragStartWorld = GetMouseWorldOnDragPlane();
         dragStartCarWorld = transform.position;
 
@@ -91,6 +94,8 @@ public class CarView : MonoBehaviour
 
     private void OnMouseDrag()
     {
+        if (board.IsInputBlocked()) return;
+
         Vector3 mouse = GetMouseWorldOnDragPlane();
         Vector3 delta = mouse - dragStartWorld;
 
@@ -127,6 +132,9 @@ public class CarView : MonoBehaviour
 
     private void OnMouseUp()
     {
+
+        if (board.IsInputBlocked()) return;
+
         int cellDelta = Mathf.RoundToInt(currentDragDistance / board.CellSize);
 
         int newX = dragStartX;

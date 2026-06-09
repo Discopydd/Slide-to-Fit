@@ -35,6 +35,7 @@ public class BoardManager : MonoBehaviour
     public GameObject winPanel;
     public GameObject nextButton;
     public GameObject gameClearPanel;
+    public GameObject helpPanel;
 
     [Header("Scenes")]
     public string titleSceneName = "TitleScene";
@@ -482,5 +483,29 @@ public class BoardManager : MonoBehaviour
     private void LoadTitleScene()
     {
         SceneManager.LoadScene(titleSceneName);
+    }
+    public void OpenHelpPanel()
+    {
+        if (helpPanel != null)
+        {
+            helpPanel.SetActive(true);
+        }
+    }
+
+    public bool IsInputBlocked()
+    {
+        if (helpPanel != null && helpPanel.activeSelf) return true;
+        if (winPanel != null && winPanel.activeSelf) return true;
+        if (gameClearPanel != null && gameClearPanel.activeSelf) return true;
+
+        return false; 
+    }
+
+    public void CloseHelpPanel()
+    {
+        if (helpPanel != null)
+        {
+            helpPanel.SetActive(false);
+        }
     }
 }
