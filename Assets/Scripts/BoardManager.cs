@@ -21,7 +21,7 @@ public class BoardManager : MonoBehaviour
 
     [Header("Board")]
     public float cellSize = 1f;
-    public float carHeight = 0.35f;
+    public float carHeight = 0.7f;
     public Vector2 boardOrigin = new Vector2(-3f, -3f);
 
     public float CarHeight => carHeight;
@@ -157,7 +157,7 @@ public class BoardManager : MonoBehaviour
         float worldX = boardOrigin.x + (x + widthInCells * 0.5f) * cellSize;
         float worldZ = boardOrigin.y + (y + depthInCells * 0.5f) * cellSize;
 
-        return new Vector3(worldX, carHeight * 0.5f, worldZ);
+        return new Vector3(worldX, carHeight * 0.5f + 0.08f, worldZ);
     }
 
     public int GetAllowedDelta(
@@ -277,10 +277,10 @@ public class BoardManager : MonoBehaviour
             float carHalfWidth = car.Length * cellSize * 0.5f;
 
             car.transform.position = new Vector3(
-                targetExitWorldPosition.x - carHalfWidth,
-                carHeight * 0.5f,
-                targetExitWorldPosition.y
-            );
+            targetExitWorldPosition.x - carHalfWidth,
+            carHeight * 0.5f + 0.08f,
+            targetExitWorldPosition.y
+);
         }
 
         if (moved)
