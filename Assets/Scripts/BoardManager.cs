@@ -261,6 +261,12 @@ public class BoardManager : MonoBehaviour
     {
         bool moved = car.X != newX || car.Y != newY;
 
+       
+        if (audioSource != null && moveSound != null)
+        {
+            audioSource.PlayOneShot(moveSound);
+        }
+
         int oldX = car.X;
         int oldY = car.Y;
 
@@ -277,12 +283,13 @@ public class BoardManager : MonoBehaviour
             float carHalfWidth = car.Length * cellSize * 0.5f;
 
             car.transform.position = new Vector3(
-            targetExitWorldPosition.x - carHalfWidth,
-            carHeight * 0.5f + 0.08f,
-            targetExitWorldPosition.y
-);
+                targetExitWorldPosition.x - carHalfWidth,
+                carHeight * 0.5f,
+                targetExitWorldPosition.y
+            );
         }
 
+      
         if (moved)
         {
             moveHistory.Push(new MoveRecord
@@ -297,11 +304,6 @@ public class BoardManager : MonoBehaviour
             moveCount++;
             UpdateMoveText();
             Debug.Log("Moves: " + moveCount);
-
-            if (audioSource != null && moveSound != null)
-            {
-                audioSource.PlayOneShot(moveSound);
-            }
         }
 
         CheckWin();
