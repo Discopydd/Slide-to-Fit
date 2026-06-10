@@ -125,6 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb938080ac385824d945d072aed727ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarView
-  showOutline: 0
-  outlineWidth: 0.03
+  showOutline: 1
+  outlineWidth: 0.043
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
