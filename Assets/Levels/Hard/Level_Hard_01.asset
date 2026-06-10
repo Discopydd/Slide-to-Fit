@@ -24,6 +24,7 @@ MonoBehaviour:
     isTarget: 1
     color: {r: 1, g: 0, b: 0, a: 0}
     scale: {x: 1, y: 1, z: 1}
+    surfaceSprite: {fileID: 21300000, guid: b1f580cf3c9bc9444972fc6a4d2788db, type: 3}
   - id: H-1
     x: 3
     y: 5
@@ -32,6 +33,7 @@ MonoBehaviour:
     isTarget: 0
     color: {r: 0.24610177, g: 0.5849056, b: 0.50597084, a: 0}
     scale: {x: 1, y: 1, z: 1}
+    surfaceSprite: {fileID: 21300000, guid: 7e65b42b09d61a6499bc07b13f9766dd, type: 3}
   - id: H-2
     x: 1
     y: 3
@@ -40,6 +42,7 @@ MonoBehaviour:
     isTarget: 0
     color: {r: 0, g: 1, b: 0.06588411, a: 0}
     scale: {x: 1, y: 1, z: 1}
+    surfaceSprite: {fileID: 21300000, guid: 5662fd89370428f4b9bd2cecef8d862f, type: 3}
   - id: H-3
     x: 0
     y: 0
@@ -48,6 +51,7 @@ MonoBehaviour:
     isTarget: 0
     color: {r: 0.7584905, g: 0.4965966, b: 0.4965966, a: 0}
     scale: {x: 1, y: 1, z: 1}
+    surfaceSprite: {fileID: 21300000, guid: 9eaa744eb75e12645875c5fb677e378b, type: 3}
   - id: V-1
     x: 0
     y: 1
@@ -56,6 +60,7 @@ MonoBehaviour:
     isTarget: 0
     color: {r: 0.4490565, g: 0.039821967, b: 0.41023767, a: 0}
     scale: {x: 1, y: 1, z: 1}
+    surfaceSprite: {fileID: 21300000, guid: 08ac974d4bbc06f479c2321cc90d8b98, type: 3}
   - id: V-2
     x: 2
     y: 0
@@ -64,6 +69,7 @@ MonoBehaviour:
     isTarget: 0
     color: {r: 0.6993876, g: 0.90188676, b: 0.80468774, a: 0}
     scale: {x: 1, y: 1, z: 1}
+    surfaceSprite: {fileID: 21300000, guid: 9eaa744eb75e12645875c5fb677e378b, type: 3}
   - id: V-3
     x: 3
     y: 0
@@ -72,3 +78,4 @@ MonoBehaviour:
     isTarget: 0
     color: {r: 0.409151, g: 0.37540045, b: 0.4188679, a: 0}
     scale: {x: 1, y: 1, z: 1}
+    surfaceSprite: {fileID: 21300000, guid: 5662fd89370428f4b9bd2cecef8d862f, type: 3}
